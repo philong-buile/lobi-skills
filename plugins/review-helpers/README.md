@@ -22,6 +22,31 @@ It does not modify source code. It posts the comments as one PR review through `
 
 **Requires** `gh` (GitHub CLI), authenticated in the current shell.
 
+### `pl-pr-review-request`
+
+Drafts the Slack message that asks a reviewer to look at a set of PRs. It works like this:
+
+- fetches each PR's real title, URL, draft state and CI status from `gh`;
+- orders stacked PRs base to head;
+- writes a short plain-English summary per PR from its description.
+
+The tone is a coworker asking a senior colleague: simple English, no "Sir", no exclamation marks. Two optional CLAUDE.md lines configure it:
+
+```
+Review-request reviewer: https://<workspace>.slack.com/team/<member-id>
+Review-request greeting: お疲れ様です。
+```
+
+It only drafts the message in a code block for you to paste. It never sends anything and never changes PR state.
+
+**Trigger phrases**
+
+- "Draft a review request for these PRs"
+- "Message my lead the PRs are ready"
+- "/review-helpers:pl-pr-review-request 118 119 121"
+
+**Requires** `gh` (GitHub CLI), authenticated in the current shell.
+
 ### `pl-pr-autofix`
 
 Turns on Auto-fix in the Claude desktop app for a PR right after it is opened. Auto-fix wakes the session on CI failures, merge conflicts and review comments.
@@ -52,7 +77,7 @@ A critical staff/principal-level review of a whole system. It ranks improvements
 2. Runs six read-only review lanes in parallel: backend, agent/MCP layer, frontend and host, infra and CI/CD, security, and ecosystem web research.
 3. Re-checks in the code every claim that drives a priority.
 4. Scores each candidate with `Impact × Visibility ÷ (Effort + Risk/2)` and sorts it into Tier S, A, B or C.
-5. Writes 3–5 killer projects, a dated 4-phase roadmap, the metrics to start collecting, and what to show your manager.
+5. Writes 3 to 5 killer projects, a dated 4-phase roadmap, the metrics to start collecting, and what to show your manager.
 
 The report and the raw lane reports are saved to a folder outside git. The skill also handles follow-up questions such as "should we replace our self-hosted X with managed Y?".
 
@@ -73,4 +98,4 @@ It is read-only for the reviewed repos. It never edits, commits or pushes there,
 /plugin install review-helpers@lobi-skills
 ```
 
-Invoke as `/review-helpers:pl-pr-review-annotations`, `/review-helpers:pl-pr-autofix` or `/review-helpers:pl-staff-review` from any repo.
+Invoke as `/review-helpers:pl-pr-review-annotations`, `/review-helpers:pl-pr-review-request`, `/review-helpers:pl-pr-autofix` or `/review-helpers:pl-staff-review` from any repo.

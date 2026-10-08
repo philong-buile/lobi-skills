@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="300" viewBox="0 0 1280 300" role="img" aria-label="lobi-skills: Claude Code skills for PR triage, system reviews and design reviews">
+  <style>
+    .sans { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+    .mono { font-family: ui-monospace, SFMono-Regular, "Cascadia Mono", Menlo, Consolas, monospace; }
+  </style>
+  <rect x="64" y="66" width="56" height="56" rx="14" fill="none" stroke="#2f9e72" stroke-width="4"/>
+  <path d="M101 80 L83 108" stroke="#2f9e72" stroke-width="5" stroke-linecap="round"/>
+  <text x="140" y="114" class="sans" font-size="64" font-weight="700" letter-spacing="-2" fill="#18181b">lobi-skills</text>
+  <text x="64" y="190" class="sans" font-size="26" fill="#52525b">Claude Code skills for PR triage,</text>
+  <text x="64" y="226" class="sans" font-size="26" fill="#52525b">system reviews and design reviews.</text>
+  <g class="mono" font-size="17" fill="#52525b">
+    <text x="760" y="88"><tspan fill="#2f9e72">/</tspan>review-helpers:pl-staff-review</text>
+    <text x="760" y="128"><tspan fill="#2f9e72">/</tspan>review-helpers:pl-pr-review-annotations</text>
+    <text x="760" y="168"><tspan fill="#2f9e72">/</tspan>review-helpers:pl-pr-review-request</text>
+    <text x="760" y="208"><tspan fill="#2f9e72">/</tspan>review-helpers:pl-pr-autofix</text>
+    <text x="760" y="248"><tspan fill="#2f9e72">/</tspan>design-helpers:pl-design-review</text>
+  </g>
+</svg>
