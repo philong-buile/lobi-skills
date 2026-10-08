@@ -3,9 +3,8 @@
     .sans { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
     .mono { font-family: ui-monospace, SFMono-Regular, "Cascadia Mono", Menlo, Consolas, monospace; }
   </style>
-  <rect x="64" y="66" width="56" height="56" rx="14" fill="none" stroke="#2f9e72" stroke-width="4"/>
-  <path d="M101 80 L83 108" stroke="#2f9e72" stroke-width="5" stroke-linecap="round"/>
-  <text x="140" y="114" class="sans" font-size="64" font-weight="700" letter-spacing="-2" fill="#18181b">lobi-skills</text>
+  <g transform="translate(51 43) scale(0.36)"><path fill="#18181b" d="M123 49 A5 5 0 0 1 128 44 H128 A5 5 0 0 1 133 49 V79 A5 5 0 0 1 128 84 H128 A5 5 0 0 1 123 79 Z"/><path fill="#18181b" fill-rule="evenodd" d="M36 140 A60 60 0 0 1 96 80 H160 A60 60 0 0 1 220 140 V168 A60 60 0 0 1 160 228 H96 A60 60 0 0 1 36 168 Z M50 140 A46 46 0 0 1 96 94 H160 A46 46 0 0 1 206 140 V168 A46 46 0 0 1 160 214 H96 A46 46 0 0 1 50 168 Z"/><path fill="#3fb985" d="M114 34 A14 14 0 1 1 142 34 A14 14 0 1 1 114 34 Z"/><path fill="#18181b" d="M64 142 A34 34 0 0 1 98 108 H158 A34 34 0 0 1 192 142 V166 A34 34 0 0 1 158 200 H98 A34 34 0 0 1 64 166 Z"/><path fill="#3fb985" d="M89 172 A12 12 0 1 1 113 172 A12 12 0 1 1 89 172 Z M135 184 L151 184 L167 124 L151 124 Z"/></g>
+  <text x="152" y="114" class="sans" font-size="64" font-weight="700" letter-spacing="-2" fill="#18181b">lobi-skills</text>
   <text x="64" y="190" class="sans" font-size="26" fill="#52525b">Claude Code skills for shipping changes,</text>
   <text x="64" y="226" class="sans" font-size="26" fill="#52525b">PR triage, system and design reviews.</text>
   <g class="mono" font-size="17" fill="#52525b">

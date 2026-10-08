@@ -4,12 +4,12 @@
 </picture>
 
 <p>
+  <a href="https://github.com/philong-buile/lobi-skills/actions/workflows/check.yml"><img alt="check" src="https://github.com/philong-buile/lobi-skills/actions/workflows/check.yml/badge.svg"></a>
+  <a href="./evals/results/triggers-2026-10-08.md"><img alt="Trigger eval: 51 of 51" src="https://img.shields.io/badge/trigger%20eval-51%2F51-3f3f46?style=flat-square"></a>
   <a href="./LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-2f9e72?style=flat-square"></a>
-  <img alt="Claude Code plugin marketplace" src="https://img.shields.io/badge/Claude%20Code-plugin%20marketplace-3f3f46?style=flat-square">
-  <img alt="7 skills" src="https://img.shields.io/badge/skills-7-3f3f46?style=flat-square">
 </p>
 
-Skills that make Claude Code ship and review work the way a senior engineer does. It reads the real code, backs every claim with evidence, and hands back a short ranked list instead of a wall of notes.
+Seven [Claude Code](https://claude.com/product/claude-code) skills for the parts of engineering that eat the day around the code: shipping a change cleanly, getting a PR reviewed, keeping CI green, and knowing what to build next. Each one follows your repo's own rules, backs every claim with evidence, and stops to ask before anything irreversible.
 
 ## Install
 
@@ -19,42 +19,104 @@ claude plugin install review-helpers@lobi-skills
 claude plugin install design-helpers@lobi-skills
 ```
 
-Inside a Claude Code session, the same commands work as `/plugin marketplace add philong-buile/lobi-skills` and `/plugin install review-helpers@lobi-skills`.
+Then ask in plain language. `Ship this fix: the export button runs twice on a double click` is enough; no flags to learn. Every skill also has a slash command, such as `/review-helpers:pl-ship-change`.
 
 ## Skills
 
 | Skill | What you get | Runs where |
 | --- | --- | --- |
-| [`pl-staff-review`](./plugins/review-helpers/skills/pl-staff-review/SKILL.md) | A staff-level review of a whole system: six parallel read-only lanes, claims re-checked in code, every idea scored, and a dated roadmap with 3 to 5 killer projects | CLI or desktop |
 | [`pl-ship-change`](./plugins/review-helpers/skills/pl-ship-change/SKILL.md) | One feature or fix taken from plan to PR: branch, implement, unit + smoke + end-to-end checks, self-review, a short PR with a smoke-test guide, and a merge only when you ask | CLI or desktop |
+| [`pl-staff-review`](./plugins/review-helpers/skills/pl-staff-review/SKILL.md) | A staff-level review of a whole system: six parallel read-only lanes, claims re-checked in code, every idea scored, and a dated roadmap with 3 to 5 killer projects | CLI or desktop |
 | [`pl-pr-review-annotations`](./plugins/review-helpers/skills/pl-pr-review-annotations/SKILL.md) | `[FYI]` comments on a large PR that tell reviewers which hunks matter most | CLI or desktop |
 | [`pl-pr-review-request`](./plugins/review-helpers/skills/pl-pr-review-request/SKILL.md) | A ready-to-paste Slack message asking for review, with real PR titles, stack order and a short summary each | CLI or desktop |
 | [`pl-pr-autofix`](./plugins/review-helpers/skills/pl-pr-autofix/SKILL.md) | Auto-fix turned on for each new PR, so CI failures and merge conflicts get fixed while you work on something else | Desktop app |
 | [`pl-design-review`](./plugins/design-helpers/skills/pl-design-review/SKILL.md) | A frontend design and UX review in a real browser at desktop and mobile widths, ending in a P1/P2/P3 fix list with file:line references | Desktop app |
 | [`pl-readme-polish`](./plugins/design-helpers/skills/pl-readme-polish/SKILL.md) | A README redesigned like a popular open-source repo: light/dark banner, factual badges, install first, one feature table, checked on GitHub after the push | CLI or desktop |
 
-Each skill triggers from plain language. A few prompts to start with:
+## How it changes the work
 
-```text
-Do a staff-level review of this project before my performance review
-Ship this fix: the export button runs twice on a double click
-Add FYI comments on PR #42
-Draft a review request for PRs 118, 119 and 121
-Review the UI of this site and fix the P1 items
-Polish the README of this repo like popular open-source projects
-```
+| Task | Without the skill | With the skill |
+| --- | --- | --- |
+| Ship a fix | Branch, tests, PR template and smoke steps by hand. The end-to-end check is the step that gets skipped, and the PR says "tested" without saying how. | One prompt. It plans first and asks before risky changes, runs unit, smoke and end-to-end checks, and the PR lists what ran with counts and what did not. |
+| Get a big PR reviewed | Reviewers scroll the whole diff to find the few hunks that matter. | `[FYI] Important / Medium / Minor` comments on the hunks, so review starts where the risk is. |
+| Ask for the review | A message typed from memory, with PR titles that drifted from the real ones. | Real titles and links from `gh`, stacked PRs in review order, drafts flagged, one plain sentence each. Never sent for you. |
+| CI goes red after you switch tasks | You notice hours later. | Auto-fix wakes the session, fixes the cause and pushes. Review comments are triaged, never answered on GitHub without asking. |
+| Decide what to build next | Opinions, and a backlog sorted by whoever spoke last. | Six independent reviews, claims re-checked in code, every idea scored by impact per hour, and a dated roadmap you can defend. |
+| Polish the UI or the README | "Looks fine" on one screen size. | Measured findings at desktop and mobile widths, ranked P1/P2/P3 with file:line, and a render check on GitHub. |
 
-## How the staff review works
+## How the skills fit together
 
 ```mermaid
 flowchart LR
-  W["Clean worktree<br/>of the default branch"] --> L1["Backend"] & L2["Agent / MCP layer"] & L3["Frontend + host"] & L4["Infra + CI/CD"] & L5["Security"] & L6["Ecosystem research"]
-  L1 & L2 & L3 & L4 & L5 & L6 --> V["Re-check every claim<br/>that drives a priority"]
-  V --> S["Score and tier<br/>Impact × Visibility ÷ (Effort + Risk / 2)"]
-  S --> R["Report<br/>killer projects + dated roadmap"]
+  P["pl-staff-review<br/>what to build"] --> S["pl-ship-change<br/>plan to PR"]
+  D["pl-design-review<br/>UI fixes"] --> S
+  S --> A["pl-pr-autofix<br/>keeps CI green"]
+  S --> F["pl-pr-review-annotations<br/>guides reviewers"]
+  F --> R["pl-pr-review-request<br/>asks for review"]
+  R --> M["Merge"]
+  A --> M
 ```
 
-The lanes never edit, commit or push in the reviewed repos, never call cloud APIs, and never print secret values. The report lands in a folder outside git, together with the raw lane reports, so nothing sensitive ends up in the repo.
+## Why engineers can trust them
+
+- **Your repo's rules win.** Skills read `CLAUDE.md`, `AGENTS.md`, `CONTRIBUTING`, the PR template and CI first. Commands, branch names and PR format come from your repo, not from the skill.
+- **Evidence, not prose.** Every finding carries a `file:line`, a test count, a measurement or a screenshot. "Done" means a check ran; anything that did not run is listed as not run.
+- **Safe by default.** Reviews are read-only. Messages are drafted, never sent. PRs open as drafts. Merges, deploys and public pushes happen only after an explicit yes.
+- **Short output.** A ranked list instead of a wall of notes, a 5 to 10 minute smoke-test guide, a two-sentence PR summary.
+- **Composable.** The skills hand work to each other, as the diagram shows, so the same rules hold from planning to merge.
+
+## Evaluation
+
+### Checked on every push
+
+[`scripts/check.py`](./scripts/check.py) runs in [CI](./.github/workflows/check.yml) and fails the build on any of these:
+
+| Check | What it catches |
+| --- | --- |
+| Manifests | `marketplace.json` and each `plugin.json` parse, names match, versions are semver, source folders exist |
+| Skill front matter | Every `SKILL.md` has a `name` equal to its folder and a description of at most 1024 characters, which Claude Code uses to pick the skill |
+| Links | Every relative link and image in every Markdown file resolves |
+| Copy | No em or en dashes in READMEs |
+| Script self-tests | `extract_agent_reports.py` and the eval runner pass their own tests |
+
+```bash
+python scripts/check.py
+```
+
+### Does the right skill fire?
+
+A skill only helps if Claude picks it from a plain-language request. [`evals/run_triggers.py`](./evals/run_triggers.py) runs [17 prompts](./evals/triggers.json) through headless Claude Code inside a small [fixture app](./evals/fixture), with only these plugins loaded, no user settings, and every writing tool disabled. It records the first skill each prompt fires. 14 prompts should fire a specific skill; 3 unrelated prompts should fire none.
+
+| Skill | Prompts | Fired correctly |
+| --- | --: | --: |
+| `pl-ship-change` | 2 | 6 / 6 |
+| `pl-staff-review` | 2 | 6 / 6 |
+| `pl-pr-review-annotations` | 2 | 6 / 6 |
+| `pl-pr-review-request` | 2 | 6 / 6 |
+| `pl-pr-autofix` | 2 | 6 / 6 |
+| `pl-design-review` | 2 | 6 / 6 |
+| `pl-readme-polish` | 2 | 6 / 6 |
+| Unrelated prompts, no skill expected | 3 | 9 / 9 |
+
+**51 of 51 correct** on `claude-opus-5[1m]` with Claude Code 2.1.263, 3 runs per prompt, up to 6 turns each ([full report](./evals/results/triggers-2026-10-08.md)). The eval earned its keep on the way there:
+
+1. **First run, empty repo, 3 turns.** It mostly measured the setup. With no code to look at, the model explored first and ran out of turns before any skill, so the fixture app and the 6-turn budget were added.
+2. **Second run: 48 of 51** ([report](./evals/results/triggers-2026-10-08-before-tuning.md)). `pl-ship-change` missed an "implement X and open a PR" prompt twice, and `pl-staff-review` missed an "architecture review" prompt once, because the model started reading code instead. Both descriptions now say to start with the skill.
+3. **Third run: 51 of 51.**
+
+This measures whether the right skill starts, not how good its output is. The real-work table below covers that.
+
+```bash
+python evals/run_triggers.py --runs 3
+```
+
+### Used on real work
+
+| Skill | Where | What happened |
+| --- | --- | --- |
+| `pl-readme-polish` | This README and [lobi_agent](https://github.com/philong-buile/lobi_agent) | Rebuilt both READMEs and checked the render on GitHub. Its link check caught a redirected URL, and its facts-only rule flagged a missing `LICENSE`, which was added after asking. |
+| `pl-staff-review` | A private multi-repo production system: desktop app, backend, agent and tool layer, cloud infrastructure | Six lanes ran in parallel and 13 priority-driving claims were re-checked in code before ranking. When the lane output files came back empty, `extract_agent_reports.py` recovered all six reports from the session transcript. |
+| `pl-pr-autofix`, `pl-pr-review-request` | The author's team PRs on a production codebase | Part of the author's PR flow. The private versions carry the team's reviewer and repos; these public versions read them from `CLAUDE.md`. |
 
 ## Configuration
 
@@ -69,7 +131,7 @@ Without these lines, `pl-pr-autofix` only offers Auto-fix, and `pl-pr-review-req
 
 ## Requirements
 
-- [GitHub CLI](https://cli.github.com/) (`gh`), signed in, for the PR skills and the staff review.
+- [GitHub CLI](https://cli.github.com/) (`gh`), signed in, for the PR skills, the ship flow and the staff review.
 - The Claude desktop app (Code tab) for `pl-pr-autofix` and `pl-design-review`. They need the PR monitor and the built-in browser.
 - Web search for the ecosystem lane of the staff review.
 
@@ -78,22 +140,23 @@ Without these lines, `pl-pr-autofix` only offers Auto-fix, and `pl-pr-review-req
 ```text
 .
 ├── .claude-plugin/marketplace.json     the plugin list
-├── assets/                             README images
+├── .github/workflows/check.yml         runs scripts/check.py on every push
+├── assets/                             banners and the logo (assets/logo/)
+├── evals/                              trigger eval: prompts, fixture app, runner, results
+├── scripts/check.py                    repository checks
 └── plugins/
-    ├── review-helpers/
-    │   ├── .claude-plugin/plugin.json
-    │   ├── README.md
+    ├── review-helpers/                 ship, review, triage, request, auto-fix
     │   └── skills/<skill>/SKILL.md     plus references/ and scripts/ where needed
-    └── design-helpers/
+    └── design-helpers/                 design review, README polish
 ```
 
 ## Contributing
 
-Issues and pull requests are welcome. A skill is one folder with a `SKILL.md`. Keep it self-contained, and check the manifests before opening a PR:
+Issues and pull requests are welcome. A skill is one folder with a `SKILL.md`; keep it self-contained, and add a trigger prompt for it to `evals/triggers.json`. Before opening a PR:
 
 ```bash
+python scripts/check.py
 claude plugin validate .
-claude plugin validate plugins/review-helpers
 ```
 
 ## License

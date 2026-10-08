@@ -6,8 +6,9 @@ description: >-
   lives), self-review, commit, push, open a short PR with a smoke-test guide, review the PR, and
   merge only when asked. It reads the repo's own rules (CLAUDE.md, AGENTS.md, CONTRIBUTING, the PR
   template, CI) for commands, branch names, PR format and merge method. Use when the user says
-  "ship this feature", "ship this fix", "implement and open a PR", "take this from plan to PR",
-  "full ship", or "fix #N and merge it".
+  "ship this feature", "ship this fix", "implement X and open a PR", "take this from plan to PR",
+  "full ship", or "fix #N and merge it". Invoke it first, before exploring the code, whenever a
+  request asks to build, implement or fix something and also mentions a PR, shipping or merging.
 ---
 
 # Ship a change: plan to merged PR
