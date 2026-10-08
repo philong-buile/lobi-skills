@@ -1,0 +1,22 @@
+<!-- Banner template for pl-readme-polish. Copy to assets/banner-light.svg and assets/banner-dark.svg.
+     Replace every {{...}}. Light: TEXT #18181b, MUTED #52525b. Dark: TEXT #f4f4f5, MUTED #a1a1aa.
+     ACCENT is one color, saturation < 80% (dark variant slightly lighter). Keep right edges <= 1216.
+     Add or remove right-column lines in steps of 36-40 px; keep them inside 64..252. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="300" viewBox="0 0 1280 300" role="img" aria-label="{{NAME}}: {{TAGLINE}}">
+  <style>
+    .sans { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+    .mono { font-family: ui-monospace, SFMono-Regular, "Cascadia Mono", Menlo, Consolas, monospace; }
+  </style>
+  <rect x="64" y="66" width="56" height="56" rx="14" fill="none" stroke="{{ACCENT}}" stroke-width="4"/>
+  <path d="M101 80 L83 108" stroke="{{ACCENT}}" stroke-width="5" stroke-linecap="round"/>
+  <text x="140" y="114" class="sans" font-size="64" font-weight="700" letter-spacing="-2" fill="{{TEXT}}">{{NAME}}</text>
+  <text x="64" y="190" class="sans" font-size="26" fill="{{MUTED}}">{{TAGLINE_LINE_1}}</text>
+  <text x="64" y="226" class="sans" font-size="26" fill="{{MUTED}}">{{TAGLINE_LINE_2}}</text>
+  <g class="mono" font-size="17" fill="{{MUTED}}">
+    <text x="760" y="88"><tspan fill="{{ACCENT}}">{{PREFIX}}</tspan>{{ITEM_1}}</text>
+    <text x="760" y="128"><tspan fill="{{ACCENT}}">{{PREFIX}}</tspan>{{ITEM_2}}</text>
+    <text x="760" y="168"><tspan fill="{{ACCENT}}">{{PREFIX}}</tspan>{{ITEM_3}}</text>
+    <text x="760" y="208"><tspan fill="{{ACCENT}}">{{PREFIX}}</tspan>{{ITEM_4}}</text>
+    <text x="760" y="248"><tspan fill="{{ACCENT}}">{{PREFIX}}</tspan>{{ITEM_5}}</text>
+  </g>
+</svg>

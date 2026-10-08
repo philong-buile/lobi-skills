@@ -6,7 +6,7 @@
 <p>
   <a href="./LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-2f9e72?style=flat-square"></a>
   <img alt="Claude Code plugin marketplace" src="https://img.shields.io/badge/Claude%20Code-plugin%20marketplace-3f3f46?style=flat-square">
-  <img alt="5 skills" src="https://img.shields.io/badge/skills-5-3f3f46?style=flat-square">
+  <img alt="6 skills" src="https://img.shields.io/badge/skills-6-3f3f46?style=flat-square">
 </p>
 
 Skills that make Claude Code review work the way a senior engineer does. It reads the real code, backs every claim with evidence, and hands back a short ranked list instead of a wall of notes.
@@ -30,6 +30,7 @@ Inside a Claude Code session, the same commands work as `/plugin marketplace add
 | [`pl-pr-review-request`](./plugins/review-helpers/skills/pl-pr-review-request/SKILL.md) | A ready-to-paste Slack message asking for review, with real PR titles, stack order and a short summary each | CLI or desktop |
 | [`pl-pr-autofix`](./plugins/review-helpers/skills/pl-pr-autofix/SKILL.md) | Auto-fix turned on for each new PR, so CI failures and merge conflicts get fixed while you work on something else | Desktop app |
 | [`pl-design-review`](./plugins/design-helpers/skills/pl-design-review/SKILL.md) | A frontend design and UX review in a real browser at desktop and mobile widths, ending in a P1/P2/P3 fix list with file:line references | Desktop app |
+| [`pl-readme-polish`](./plugins/design-helpers/skills/pl-readme-polish/SKILL.md) | A README redesigned like a popular open-source repo: light/dark banner, factual badges, install first, one feature table, checked on GitHub after the push | CLI or desktop |
 
 Each skill triggers from plain language. A few prompts to start with:
 
@@ -38,6 +39,7 @@ Do a staff-level review of this project before my performance review
 Add FYI comments on PR #42
 Draft a review request for PRs 118, 119 and 121
 Review the UI of this site and fix the P1 items
+Polish the README of this repo like popular open-source projects
 ```
 
 ## How the staff review works

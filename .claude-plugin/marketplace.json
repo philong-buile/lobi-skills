@@ -18,7 +18,7 @@
     },
     {
       "name": "design-helpers",
-      "description": "Deep frontend design and UX/UI review in a real browser at desktop and mobile widths, ending in a ranked P1/P2/P3 fix list, with an optional fix-and-ship flow",
+      "description": "Frontend design and UX/UI review in a real browser with a ranked P1/P2/P3 fix list, plus a README redesign skill for professional-looking repos",
       "author": {
         "name": "Long Bui"
       },

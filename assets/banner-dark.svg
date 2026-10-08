@@ -9,10 +9,11 @@
   <text x="64" y="190" class="sans" font-size="26" fill="#a1a1aa">Claude Code skills for PR triage,</text>
   <text x="64" y="226" class="sans" font-size="26" fill="#a1a1aa">system reviews and design reviews.</text>
   <g class="mono" font-size="17" fill="#a1a1aa">
-    <text x="760" y="88"><tspan fill="#3fb985">/</tspan>review-helpers:pl-staff-review</text>
-    <text x="760" y="128"><tspan fill="#3fb985">/</tspan>review-helpers:pl-pr-review-annotations</text>
-    <text x="760" y="168"><tspan fill="#3fb985">/</tspan>review-helpers:pl-pr-review-request</text>
-    <text x="760" y="208"><tspan fill="#3fb985">/</tspan>review-helpers:pl-pr-autofix</text>
-    <text x="760" y="248"><tspan fill="#3fb985">/</tspan>design-helpers:pl-design-review</text>
+    <text x="760" y="80"><tspan fill="#3fb985">/</tspan>review-helpers:pl-staff-review</text>
+    <text x="760" y="116"><tspan fill="#3fb985">/</tspan>review-helpers:pl-pr-review-annotations</text>
+    <text x="760" y="152"><tspan fill="#3fb985">/</tspan>review-helpers:pl-pr-review-request</text>
+    <text x="760" y="188"><tspan fill="#3fb985">/</tspan>review-helpers:pl-pr-autofix</text>
+    <text x="760" y="224"><tspan fill="#3fb985">/</tspan>design-helpers:pl-design-review</text>
+    <text x="760" y="260"><tspan fill="#3fb985">/</tspan>design-helpers:pl-readme-polish</text>
   </g>
 </svg>
