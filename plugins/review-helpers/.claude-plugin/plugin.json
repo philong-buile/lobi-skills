@@ -1,7 +1,7 @@
 {
   "name": "review-helpers",
-  "description": "Adds [FYI] triage comments to large PRs, turns on Auto-fix for new PRs, and runs a staff-level system review that ends in a ranked roadmap",
-  "version": "0.1.0",
+  "description": "Adds [FYI] triage comments to large PRs, drafts the Slack review-request message, turns on Auto-fix for new PRs, and runs a staff-level system review that ends in a ranked roadmap",
+  "version": "0.2.0",
   "author": {
     "name": "Long Bui"
   },

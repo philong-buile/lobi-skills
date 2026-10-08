@@ -8,7 +8,7 @@
   "plugins": [
     {
       "name": "review-helpers",
-      "description": "Adds [FYI] triage comments to large PRs, turns on Auto-fix for new PRs, and runs a staff-level system review that ends in a ranked roadmap",
+      "description": "Adds [FYI] triage comments to large PRs, drafts the Slack review-request message, turns on Auto-fix for new PRs, and runs a staff-level system review that ends in a ranked roadmap",
       "author": {
         "name": "Long Bui"
       },
