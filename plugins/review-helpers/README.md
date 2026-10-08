@@ -1,8 +1,27 @@
 # review-helpers
 
-Claude Code skills for reviewing code and whole systems.
+Claude Code skills for shipping changes and reviewing code and whole systems.
 
 ## Skills
+
+### `pl-ship-change`
+
+Takes one feature or fix from plan to merged PR, in any repo. It first reads the repo's own rules: CLAUDE.md, AGENTS.md, CONTRIBUTING, the PR template, CI and recent merged PRs. Those set the commands, branch names, PR format and merge method. Then it works through these steps:
+
+1. Plans, and waits for your OK on risky or multi-component changes.
+2. Branches from a fresh base and makes the smallest change, with tests.
+3. Verifies with unit tests, a smoke test and an end-to-end run where the change lives.
+4. Self-reviews the diff, then opens a short draft PR with a 5 to 10 minute smoke-test guide.
+5. Reviews its own PR.
+6. Merges only when you ask and the checks and approvals allow it.
+
+**Trigger phrases**
+
+- "Ship this fix"
+- "Implement this and open a PR"
+- "Fix #123 and merge it"
+
+**Requires** `gh` (GitHub CLI), authenticated in the current shell.
 
 ### `pl-pr-review-annotations`
 
@@ -98,4 +117,4 @@ It is read-only for the reviewed repos. It never edits, commits or pushes there,
 /plugin install review-helpers@lobi-skills
 ```
 
-Invoke as `/review-helpers:pl-pr-review-annotations`, `/review-helpers:pl-pr-review-request`, `/review-helpers:pl-pr-autofix` or `/review-helpers:pl-staff-review` from any repo.
+Invoke as `/review-helpers:pl-ship-change`, `/review-helpers:pl-pr-review-annotations`, `/review-helpers:pl-pr-review-request`, `/review-helpers:pl-pr-autofix` or `/review-helpers:pl-staff-review` from any repo.

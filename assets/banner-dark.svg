@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="300" viewBox="0 0 1280 300" role="img" aria-label="lobi-skills: Claude Code skills for PR triage, system reviews and design reviews">
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="300" viewBox="0 0 1280 300" role="img" aria-label="lobi-skills: Claude Code skills for shipping changes, PR triage, and system and design reviews">
   <style>
     .sans { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
     .mono { font-family: ui-monospace, SFMono-Regular, "Cascadia Mono", Menlo, Consolas, monospace; }
@@ -6,14 +6,15 @@
   <rect x="64" y="66" width="56" height="56" rx="14" fill="none" stroke="#3fb985" stroke-width="4"/>
   <path d="M101 80 L83 108" stroke="#3fb985" stroke-width="5" stroke-linecap="round"/>
   <text x="140" y="114" class="sans" font-size="64" font-weight="700" letter-spacing="-2" fill="#f4f4f5">lobi-skills</text>
-  <text x="64" y="190" class="sans" font-size="26" fill="#a1a1aa">Claude Code skills for PR triage,</text>
-  <text x="64" y="226" class="sans" font-size="26" fill="#a1a1aa">system reviews and design reviews.</text>
+  <text x="64" y="190" class="sans" font-size="26" fill="#a1a1aa">Claude Code skills for shipping changes,</text>
+  <text x="64" y="226" class="sans" font-size="26" fill="#a1a1aa">PR triage, system and design reviews.</text>
   <g class="mono" font-size="17" fill="#a1a1aa">
-    <text x="760" y="80"><tspan fill="#3fb985">/</tspan>review-helpers:pl-staff-review</text>
-    <text x="760" y="116"><tspan fill="#3fb985">/</tspan>review-helpers:pl-pr-review-annotations</text>
-    <text x="760" y="152"><tspan fill="#3fb985">/</tspan>review-helpers:pl-pr-review-request</text>
-    <text x="760" y="188"><tspan fill="#3fb985">/</tspan>review-helpers:pl-pr-autofix</text>
-    <text x="760" y="224"><tspan fill="#3fb985">/</tspan>design-helpers:pl-design-review</text>
-    <text x="760" y="260"><tspan fill="#3fb985">/</tspan>design-helpers:pl-readme-polish</text>
+    <text x="760" y="72"><tspan fill="#3fb985">/</tspan>review-helpers:pl-ship-change</text>
+    <text x="760" y="104"><tspan fill="#3fb985">/</tspan>review-helpers:pl-staff-review</text>
+    <text x="760" y="136"><tspan fill="#3fb985">/</tspan>review-helpers:pl-pr-review-annotations</text>
+    <text x="760" y="168"><tspan fill="#3fb985">/</tspan>review-helpers:pl-pr-review-request</text>
+    <text x="760" y="200"><tspan fill="#3fb985">/</tspan>review-helpers:pl-pr-autofix</text>
+    <text x="760" y="232"><tspan fill="#3fb985">/</tspan>design-helpers:pl-design-review</text>
+    <text x="760" y="264"><tspan fill="#3fb985">/</tspan>design-helpers:pl-readme-polish</text>
   </g>
 </svg>
