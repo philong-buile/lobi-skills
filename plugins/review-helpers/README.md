@@ -1,0 +1,76 @@
+# review-helpers
+
+Claude Code skills for reviewing code and whole systems.
+
+## Skills
+
+### `pl-pr-review-annotations`
+
+Adds simple `[FYI]` triage comments to a PR, so reviewers can quickly tell which hunks matter. It uses three priority bands:
+
+- `[FYI] Important Changes`: core logic, architecture, behavior, security or performance, changes across many modules.
+- `[FYI] Medium Changes`: refactors, validation, error handling, API tweaks, more tests.
+- `[FYI] Minor Changes`: logging, docs, naming, small fixes.
+
+It does not modify source code. It posts the comments as one PR review through `gh api`.
+
+**Trigger phrases**
+
+- "Add FYI comments on this PR"
+- "Annotate PR #42 for reviewers"
+- "Mark the important parts of this PR"
+
+**Requires** `gh` (GitHub CLI), authenticated in the current shell.
+
+### `pl-pr-autofix`
+
+Turns on Auto-fix in the Claude desktop app for a PR right after it is opened. Auto-fix wakes the session on CI failures, merge conflicts and review comments.
+
+You choose the covered repos with one line in your CLAUDE.md:
+
+```
+Auto-fix repos: owner/repo-a, owner/repo-b
+```
+
+- **Covered repos:** Auto-fix turns on without asking, and CI failures and conflicts are fixed and pushed.
+- **Other repos:** it only offers Auto-fix.
+- **Review comments:** they are triaged, and nothing is posted on GitHub without asking.
+
+Desktop app only, because it needs the `ccd_pr` tools. It never turns on auto-merge.
+
+**Trigger phrases**
+
+- Runs automatically after `gh pr create`
+- "Turn on auto-fix"
+- "Watch this PR's CI"
+
+### `pl-staff-review`
+
+A critical staff/principal-level review of a whole system. It ranks improvements by impact per engineering hour, for a deadline such as a salary or promotion review. It covers code, related infra repos, open PRs and PoCs, CI/CD, security, UX and the open-source ecosystem. The steps:
+
+1. Makes a clean worktree of the default branch.
+2. Runs six read-only review lanes in parallel: backend, agent/MCP layer, frontend and host, infra and CI/CD, security, and ecosystem web research.
+3. Re-checks in the code every claim that drives a priority.
+4. Scores each candidate with `Impact × Visibility ÷ (Effort + Risk/2)` and sorts it into Tier S, A, B or C.
+5. Writes 3–5 killer projects, a dated 4-phase roadmap, the metrics to start collecting, and what to show your manager.
+
+The report and the raw lane reports are saved to a folder outside git. The skill also handles follow-up questions such as "should we replace our self-hosted X with managed Y?".
+
+It is read-only for the reviewed repos. It never edits, commits or pushes there, never calls cloud APIs, and never prints secret values. If a subagent's `.output` file is empty, `scripts/extract_agent_reports.py` recovers the lane report from the session transcript.
+
+**Trigger phrases**
+
+- "Do a staff-level review of this project"
+- "What should I build before my performance review?"
+- "Should we drop our self-hosted RAG and use a managed service?"
+
+**Requires** `gh` (GitHub CLI), authenticated in the current shell. The ecosystem lane needs web search.
+
+## Install
+
+```
+/plugin marketplace add philong-buile/lobi-skills
+/plugin install review-helpers@lobi-skills
+```
+
+Invoke as `/review-helpers:pl-pr-review-annotations`, `/review-helpers:pl-pr-autofix` or `/review-helpers:pl-staff-review` from any repo.

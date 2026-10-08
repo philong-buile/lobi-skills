@@ -1,0 +1,30 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "lobi-skills",
+  "description": "Long Bui's public Claude Code skills",
+  "owner": {
+    "name": "Long Bui"
+  },
+  "plugins": [
+    {
+      "name": "review-helpers",
+      "description": "Adds [FYI] triage comments to large PRs, turns on Auto-fix for new PRs, and runs a staff-level system review that ends in a ranked roadmap",
+      "author": {
+        "name": "Long Bui"
+      },
+      "category": "code-review",
+      "source": "./plugins/review-helpers",
+      "homepage": "https://github.com/philong-buile/lobi-skills/tree/main/plugins/review-helpers"
+    },
+    {
+      "name": "design-helpers",
+      "description": "Deep frontend design and UX/UI review in a real browser at desktop and mobile widths, ending in a ranked P1/P2/P3 fix list, with an optional fix-and-ship flow",
+      "author": {
+        "name": "Long Bui"
+      },
+      "category": "design",
+      "source": "./plugins/design-helpers",
+      "homepage": "https://github.com/philong-buile/lobi-skills/tree/main/plugins/design-helpers"
+    }
+  ]
+}
