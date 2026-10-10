@@ -34,9 +34,27 @@ def run_case(prompt, workdir, model, max_turns):
         cmd += ["--plugin-dir", str(plugin)]
     if model:
         cmd += ["--model", model]
-    out = subprocess.run(cmd, cwd=workdir, capture_output=True, text=True, encoding="utf-8",
-                         stdin=subprocess.DEVNULL, timeout=300).stdout
-    return first_skill(out), first_action(out), session_model(out)
+    timed_out = False
+    try:
+        # ponytail: on Windows `claude` is a .cmd shim, and killing the shim leaves the real
+        # CLI running, so communicate() waits for it and 300 s is not a hard cap. Kill the
+        # process tree (taskkill /T /F) if a run ever needs a strict limit.
+        out = subprocess.run(cmd, cwd=workdir, capture_output=True, text=True, encoding="utf-8",
+                             stdin=subprocess.DEVNULL, timeout=300).stdout
+    except subprocess.TimeoutExpired as e:
+        # A session that keeps working after its skill fired is still a valid case: the
+        # first skill is already in the partial transcript, so score that instead of
+        # losing every result to one slow run.
+        out, timed_out = as_text(e.stdout), True
+    action = first_action(out)
+    return first_skill(out), f"timeout after {action}" if timed_out else action, session_model(out)
+
+
+def as_text(out):
+    """TimeoutExpired.stdout may be bytes, str or None depending on the platform."""
+    if isinstance(out, bytes):
+        return out.decode("utf-8", "replace")
+    return out or ""
 
 
 def first_skill(stream):
@@ -93,6 +111,7 @@ def self_test():
     init = json.dumps({"subtype": "init", "model": "m", "claude_code_version": "1.0"})
     assert session_model(init) == "m, Claude Code 1.0" and session_model("") == "unknown"
     assert first_skill('{"type": "result"}\nnot json') is None
+    assert as_text(None) == "" and as_text(b"ok") == "ok" and as_text("ok") == "ok"
     try:
         first_skill(json.dumps({"message": {"content": [{"type": "text", "text": "Failed to authenticate: x"}]}}))
         raise AssertionError("auth failure not detected")

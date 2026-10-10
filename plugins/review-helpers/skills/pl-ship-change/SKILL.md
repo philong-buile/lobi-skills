@@ -88,6 +88,7 @@ If the rules disagree with this skill, the repo wins.
 
 1. Read the full diff against the base as a reviewer would.
 2. Run an independent review of the diff, either with the `code-review` skill or one reviewer subagent per touched component, and fix the real defects. Re-run the failing check after each fix.
+   - If the repo has a reviewer bot (`.claude/agents/*-reviewer.md`, see `pl-repo-reviewer`), run it too, beside the generic review. It knows the rules only this repo has.
 3. Triage the remaining findings:
 
 | Finding | Action |
@@ -155,7 +156,7 @@ Merge only when all of these hold:
 gh pr merge <N> --<merge|squash|rebase> --match-head-commit <reviewed sha>
 ```
 
-Use the repo's merge method. `--match-head-commit` refuses the merge if new commits arrived after your review. Then delete the branch and the worktree you created. Do not deploy unless asked.
+Use the repo's merge method. `--match-head-commit` refuses the merge if new commits arrived after your review. If the repo deploys on every push to the base, even a config-only merge deploys: check that no other PR or session is mid-deploy first, because a deploy check that waits for an exact commit times out when another push lands on top. Then delete the branch and the worktree you created. Do not deploy unless asked.
 
 ## 9. Report
 

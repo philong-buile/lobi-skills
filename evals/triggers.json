@@ -3,6 +3,8 @@
   {"expect": "pl-ship-change", "prompt": "Implement a dark mode toggle in the settings page and open a PR for it."},
   {"expect": "pl-staff-review", "prompt": "Do a staff-level review of this whole project and tell me what to build before my performance review in three months."},
   {"expect": "pl-staff-review", "prompt": "Review the architecture of this system like a principal engineer and rank the improvements by impact per engineering hour."},
+  {"expect": "pl-repo-reviewer", "prompt": "Create a reviewer bot for this repo that checks every PR against our own house rules."},
+  {"expect": "pl-repo-reviewer", "prompt": "Set up a project-specific review agent so each pull request gets checked against this codebase's invariants."},
   {"expect": "pl-pr-review-annotations", "prompt": "Add FYI comments on PR #42 so the reviewers know which parts matter most."},
   {"expect": "pl-pr-review-annotations", "prompt": "Mark the important parts of PR 17 for reviewers, it is a big diff."},
   {"expect": "pl-pr-review-request", "prompt": "Draft the Slack message asking my lead to review PRs 118 and 119."},

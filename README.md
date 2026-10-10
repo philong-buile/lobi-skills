@@ -5,11 +5,11 @@
 
 <p>
   <a href="https://github.com/philong-buile/lobi-skills/actions/workflows/check.yml"><img alt="check" src="https://github.com/philong-buile/lobi-skills/actions/workflows/check.yml/badge.svg"></a>
-  <a href="./evals/results/triggers-2026-10-08.md"><img alt="Trigger eval: 51 of 51" src="https://img.shields.io/badge/trigger%20eval-51%2F51-3f3f46?style=flat-square"></a>
+  <a href="./evals/results/triggers-2026-10-10.md"><img alt="Trigger eval: 56 of 57" src="https://img.shields.io/badge/trigger%20eval-56%2F57-3f3f46?style=flat-square"></a>
   <a href="./LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-2f9e72?style=flat-square"></a>
 </p>
 
-Seven [Claude Code](https://claude.com/product/claude-code) skills for the parts of engineering that eat the day around the code: shipping a change cleanly, getting a PR reviewed, keeping CI green, and knowing what to build next. Each one follows your repo's own rules, backs every claim with evidence, and stops to ask before anything irreversible.
+Eight [Claude Code](https://claude.com/product/claude-code) skills for the parts of engineering that eat the day around the code: shipping a change cleanly, getting a PR reviewed, keeping CI green, and knowing what to build next. Each one follows your repo's own rules, backs every claim with evidence, and stops to ask before anything irreversible.
 
 ## Install
 
@@ -26,6 +26,7 @@ Then ask in plain language. `Ship this fix: the export button runs twice on a do
 | Skill | What you get | Runs where |
 | --- | --- | --- |
 | [`pl-ship-change`](./plugins/review-helpers/skills/pl-ship-change/SKILL.md) | One feature or fix taken from plan to PR: branch, implement, unit + smoke + end-to-end checks, self-review, a short PR with a smoke-test guide, and a merge only when you ask | CLI or desktop |
+| [`pl-repo-reviewer`](./plugins/review-helpers/skills/pl-repo-reviewer/SKILL.md) | A reviewer bot for one repo: a read-only subagent that checks every PR against the 8 to 12 rules only that repo has, each backed by `file:line`, with its prompt reviewed against the code and dry-run on a merged PR before it ships | CLI or desktop |
 | [`pl-staff-review`](./plugins/review-helpers/skills/pl-staff-review/SKILL.md) | A staff-level review of a whole system: six parallel read-only lanes, claims re-checked in code, every idea scored, and a dated roadmap with 3 to 5 killer projects | CLI or desktop |
 | [`pl-pr-review-annotations`](./plugins/review-helpers/skills/pl-pr-review-annotations/SKILL.md) | `[FYI]` comments on a large PR that tell reviewers which hunks matter most | CLI or desktop |
 | [`pl-pr-review-request`](./plugins/review-helpers/skills/pl-pr-review-request/SKILL.md) | A ready-to-paste Slack message asking for review, with real PR titles, stack order and a short summary each | CLI or desktop |
@@ -38,6 +39,7 @@ Then ask in plain language. `Ship this fix: the export button runs twice on a do
 | Task | Without the skill | With the skill |
 | --- | --- | --- |
 | Ship a fix | Branch, tests, PR template and smoke steps by hand. The end-to-end check is the step that gets skipped, and the PR says "tested" without saying how. | One prompt. It plans first and asks before risky changes, runs unit, smoke and end-to-end checks, and the PR lists what ran with counts and what did not. |
+| Review against the house rules | Generic review catches null checks and style. The rule behind last year's outage, and the script that breaks it on purpose, live in one person's head. | A bot per repo runs beside the generic review on every PR, citing the file that holds each rule and naming the deliberate exceptions, so it does not cry wolf. |
 | Get a big PR reviewed | Reviewers scroll the whole diff to find the few hunks that matter. | `[FYI] Important / Medium / Minor` comments on the hunks, so review starts where the risk is. |
 | Ask for the review | A message typed from memory, with PR titles that drifted from the real ones. | Real titles and links from `gh`, stacked PRs in review order, drafts flagged, one plain sentence each. Never sent for you. |
 | CI goes red after you switch tasks | You notice hours later. | Auto-fix wakes the session, fixes the cause and pushes. Review comments are triaged, never answered on GitHub without asking. |
@@ -50,11 +52,13 @@ Then ask in plain language. `Ship this fix: the export button runs twice on a do
 flowchart LR
   P["pl-staff-review<br/>what to build"] --> S["pl-ship-change<br/>plan to PR"]
   D["pl-design-review<br/>UI fixes"] --> S
+  S --> B["pl-repo-reviewer<br/>house rules, every PR"]
   S --> A["pl-pr-autofix<br/>keeps CI green"]
   S --> F["pl-pr-review-annotations<br/>guides reviewers"]
   F --> R["pl-pr-review-request<br/>asks for review"]
   R --> M["Merge"]
   A --> M
+  B --> M
 ```
 
 ## Why engineers can trust them
@@ -85,24 +89,26 @@ python scripts/check.py
 
 ### Does the right skill fire?
 
-A skill only helps if Claude picks it from a plain-language request. [`evals/run_triggers.py`](./evals/run_triggers.py) runs [17 prompts](./evals/triggers.json) through headless Claude Code inside a small [fixture app](./evals/fixture), with only these plugins loaded, no user settings, and every writing tool disabled. It records the first skill each prompt fires. 14 prompts should fire a specific skill; 3 unrelated prompts should fire none.
+A skill only helps if Claude picks it from a plain-language request. [`evals/run_triggers.py`](./evals/run_triggers.py) runs [19 prompts](./evals/triggers.json) through headless Claude Code inside a small [fixture app](./evals/fixture), with only these plugins loaded, no user settings, and every writing tool disabled. It records the first skill each prompt fires. 16 prompts should fire a specific skill; 3 unrelated prompts should fire none.
 
 | Skill | Prompts | Fired correctly |
 | --- | --: | --: |
 | `pl-ship-change` | 2 | 6 / 6 |
 | `pl-staff-review` | 2 | 6 / 6 |
+| `pl-repo-reviewer` | 2 | 6 / 6 |
 | `pl-pr-review-annotations` | 2 | 6 / 6 |
 | `pl-pr-review-request` | 2 | 6 / 6 |
-| `pl-pr-autofix` | 2 | 6 / 6 |
+| `pl-pr-autofix` | 2 | 5 / 6 |
 | `pl-design-review` | 2 | 6 / 6 |
 | `pl-readme-polish` | 2 | 6 / 6 |
 | Unrelated prompts, no skill expected | 3 | 9 / 9 |
 
-**51 of 51 correct** on `claude-opus-5[1m]` with Claude Code 2.1.263, 3 runs per prompt, up to 6 turns each ([full report](./evals/results/triggers-2026-10-08.md)). The eval earned its keep on the way there:
+**56 of 57 correct** on `claude-opus-5[1m]` with Claude Code 2.1.263, 3 runs per prompt, up to 6 turns each ([full report](./evals/results/triggers-2026-10-10.md)). The eval earned its keep on the way there:
 
 1. **First run, empty repo, 3 turns.** It mostly measured the setup. With no code to look at, the model explored first and ran out of turns before any skill, so the fixture app and the 6-turn budget were added.
 2. **Second run: 48 of 51** ([report](./evals/results/triggers-2026-10-08-before-tuning.md)). `pl-ship-change` missed an "implement X and open a PR" prompt twice, and `pl-staff-review` missed an "architecture review" prompt once, because the model started reading code instead. Both descriptions now say to start with the skill.
-3. **Third run: 51 of 51.**
+3. **Third run: 51 of 51** ([report](./evals/results/triggers-2026-10-08.md)).
+4. **After adding `pl-repo-reviewer`: 56 of 57.** The new skill fired 6 of 6. One `pl-pr-autofix` run reached for the PR tools with `ToolSearch` before the skill, so it counts as a miss; that description did not change since the 51 of 51 run. The first attempt at this run also showed a runner bug: one slow session hit the 300 s timeout and threw away every result, so a timeout now scores the partial transcript and is labelled in the report.
 
 This measures whether the right skill starts, not how good its output is. The real-work table below covers that.
 
@@ -116,6 +122,7 @@ python evals/run_triggers.py --runs 3
 | --- | --- | --- |
 | `pl-readme-polish` | This README and [lobi_agent](https://github.com/philong-buile/lobi_agent) | Rebuilt both READMEs and checked the render on GitHub. Its link check caught a redirected URL, and its facts-only rule flagged a missing `LICENSE`, which was added after asking. |
 | `pl-staff-review` | A private multi-repo production system: desktop app, backend, agent and tool layer, cloud infrastructure | Six lanes ran in parallel and 13 priority-driving claims were re-checked in code before ranking. When the lane output files came back empty, `extract_agent_reports.py` recovered all six reports from the session transcript. |
+| `pl-repo-reviewer` | Two private production repos: an operations dashboard with a background worker, and a household app with an Android build | Reviewing the first drafts against the code caught 6 rule errors in one bot and 11 of 12 rules needing correction in the other, mostly absolute rules that the code breaks on purpose. The dry runs on already-merged PRs found 4 and 6 issues. All 6 spot-checked were real, including a deleted user's name and photo surviving in shared data. |
 | `pl-pr-autofix`, `pl-pr-review-request` | The author's team PRs on a production codebase | Part of the author's PR flow. The private versions carry the team's reviewer and repos; these public versions read them from `CLAUDE.md`. |
 
 ## Configuration
@@ -145,8 +152,8 @@ Without these lines, `pl-pr-autofix` only offers Auto-fix, and `pl-pr-review-req
 ├── evals/                              trigger eval: prompts, fixture app, runner, results
 ├── scripts/check.py                    repository checks
 └── plugins/
-    ├── review-helpers/                 ship, review, triage, request, auto-fix
-    │   └── skills/<skill>/SKILL.md     plus references/ and scripts/ where needed
+    ├── review-helpers/                 ship, repo reviewer bot, review, triage, request, auto-fix
+    │   └── skills/<skill>/SKILL.md     plus references/, scripts/ and templates/ where needed
     └── design-helpers/                 design review, README polish
 ```
 

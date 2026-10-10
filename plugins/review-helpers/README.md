@@ -11,7 +11,7 @@ Takes one feature or fix from plan to merged PR, in any repo. It first reads the
 1. Plans, and waits for your OK on risky or multi-component changes.
 2. Branches from a fresh base and makes the smallest change, with tests.
 3. Verifies with unit tests, a smoke test and an end-to-end run where the change lives.
-4. Self-reviews the diff, then opens a short draft PR with a 5 to 10 minute smoke-test guide.
+4. Self-reviews the diff, plus the repo's reviewer bot when there is one (`pl-repo-reviewer`), then opens a short draft PR with a 5 to 10 minute smoke-test guide.
 5. Reviews its own PR.
 6. Merges only when you ask and the checks and approvals allow it.
 
@@ -20,6 +20,28 @@ Takes one feature or fix from plan to merged PR, in any repo. It first reads the
 - "Ship this fix"
 - "Implement this and open a PR"
 - "Fix #123 and merge it"
+
+**Requires** `gh` (GitHub CLI), authenticated in the current shell.
+
+### `pl-repo-reviewer`
+
+Builds a reviewer bot for one repo and makes every PR run it. The bot is a read-only Claude Code subagent at `.claude/agents/<repo>-reviewer.md`. It checks a diff only against the rules a generic reviewer cannot know: the repo's trust boundaries, data invariants, guard tests, scripts that write shared data, and docs rules. The steps:
+
+1. Reads the house rules and the fix and revert history.
+2. Maps the invariants with parallel read-only agents. Every rule needs `file:line` evidence, and the deliberate exceptions are named.
+3. Writes the agent from [a template](./skills/pl-repo-reviewer/templates/reviewer-agent.md): 8 to 12 rules, a ban on running project scripts, and one line per finding.
+4. Reviews the prompt against the code, so no rule is stated more absolutely than the code allows.
+5. Dry-runs the bot on a merged PR and spot-checks its top findings.
+6. Adds a routing line to `CLAUDE.md` and to the repo's own ship skill, if it has one. `pl-ship-change` runs the bot automatically.
+7. Ships it through the repo's PR flow.
+
+On later PRs, it spawns the bot beside the generic review and checks each finding before acting.
+
+**Trigger phrases**
+
+- "Create a reviewer bot for this repo"
+- "A bot that checks our house rules on every PR"
+- "Refresh the reviewer agent"
 
 **Requires** `gh` (GitHub CLI), authenticated in the current shell.
 
@@ -117,4 +139,4 @@ It is read-only for the reviewed repos. It never edits, commits or pushes there,
 /plugin install review-helpers@lobi-skills
 ```
 
-Invoke as `/review-helpers:pl-ship-change`, `/review-helpers:pl-pr-review-annotations`, `/review-helpers:pl-pr-review-request`, `/review-helpers:pl-pr-autofix` or `/review-helpers:pl-staff-review` from any repo.
+Invoke as `/review-helpers:pl-ship-change`, `/review-helpers:pl-repo-reviewer`, `/review-helpers:pl-pr-review-annotations`, `/review-helpers:pl-pr-review-request`, `/review-helpers:pl-pr-autofix` or `/review-helpers:pl-staff-review` from any repo.
