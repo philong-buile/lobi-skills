@@ -132,6 +132,18 @@ It is read-only for the reviewed repos. It never edits, commits or pushes there,
 
 **Requires** `gh` (GitHub CLI), authenticated in the current shell. The ecosystem lane needs web search.
 
+## Agents
+
+Subagents that ship with the plugin, available in every repo as `review-helpers:<name>`. Skills run inside your conversation; an agent runs separately with its own context and tool limits and returns only its result.
+
+### `docs-drift-checker`
+
+Read-only. Takes each factual claim in the READMEs, docs pages, user-facing policy pages and agent instruction files, checks it against the code at the current base, and reports `doc:line | code:line | severity | what is wrong`. A broken promise to users, such as a deletion page that says more than the code deletes, is HIGH. `pl-ship-change` runs it when a diff changes documented behaviour.
+
+### `finding-to-test`
+
+Turns one confirmed finding into one regression test that fails on the current code, in the repo's own runner and style. It writes test files only, never the fix, so the person fixing the bug cannot bend the test to the fix. If the test passes, it reports that the finding is wrong or already fixed, and deletes the test.
+
 ## Install
 
 ```

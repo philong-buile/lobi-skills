@@ -89,6 +89,7 @@ If the rules disagree with this skill, the repo wins.
 1. Read the full diff against the base as a reviewer would.
 2. Run an independent review of the diff, either with the `code-review` skill or one reviewer subagent per touched component, and fix the real defects. Re-run the failing check after each fix.
    - If the repo has a reviewer bot (`.claude/agents/*-reviewer.md`, see `pl-repo-reviewer`), run it too, beside the generic review. It knows the rules only this repo has.
+   - If the diff changes behaviour that a README, docs page or user-facing policy page describes, run the `docs-drift-checker` agent on those pages.
 3. Triage the remaining findings:
 
 | Finding | Action |

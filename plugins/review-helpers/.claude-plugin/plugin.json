@@ -1,7 +1,7 @@
 {
   "name": "review-helpers",
-  "description": "Ships one change from plan to merged PR, builds a repo-specific reviewer bot that every PR runs, adds [FYI] triage comments to large PRs, drafts the Slack review-request message, turns on Auto-fix for new PRs, and runs a staff-level system review that ends in a ranked roadmap",
-  "version": "0.4.0",
+  "description": "Ships one change from plan to merged PR, builds a repo-specific reviewer bot that every PR runs, ships agents that check docs against code and turn a finding into a failing test, adds [FYI] triage comments to large PRs, drafts the Slack review-request message, turns on Auto-fix for new PRs, and runs a staff-level system review that ends in a ranked roadmap",
+  "version": "0.5.0",
   "author": {
     "name": "Long Bui"
   },

@@ -25,6 +25,7 @@ Generic reviewers know the language. They do not know which endpoint is this rep
    - The agent type usually shows up once the file is in the session's own checkout. A file that exists only on a branch in another worktree is not visible, and a repo's first agent may need a new session. If the type is not listed, spawn a general-purpose agent with the prompt "Follow the instructions in `<path>` after the front matter. Read-only: do not edit files or run scripts. Review PR #<n>." The fallback does not get the agent's `tools:` limit, so the read-only line matters.
 3. **Run it beside the generic review** (the `code-review` skill or the repo's own reviewer), never instead of it.
 4. **Check each finding against the code before acting**, then triage like `pl-ship-change` §5: fix, skip with a reason, or a follow-up.
+5. **Pin a confirmed bug with a test before fixing it:** give the finding to the `finding-to-test` agent (this plugin), which writes one test that fails on the current code and touches nothing else.
 
 ## Mode B: create or refresh the bot
 
