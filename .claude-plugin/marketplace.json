@@ -7,14 +7,14 @@
   },
   "plugins": [
     {
-      "name": "review-helpers",
+      "name": "lobi-review-helpers",
       "description": "Ships one change from plan to merged PR, builds a repo-specific reviewer bot that every PR runs, ships agents that check docs against code and turn a finding into a failing test, ships a Haiku agent for git and PR chores, adds [FYI] triage comments to large PRs, drafts the Slack review-request message, turns on Auto-fix for new PRs, and runs a staff-level system review that ends in a ranked roadmap",
       "author": {
         "name": "Long Bui"
       },
       "category": "code-review",
-      "source": "./plugins/review-helpers",
-      "homepage": "https://github.com/philong-buile/lobi-skills/tree/main/plugins/review-helpers"
+      "source": "./plugins/lobi-review-helpers",
+      "homepage": "https://github.com/philong-buile/lobi-skills/tree/main/plugins/lobi-review-helpers"
     },
     {
       "name": "design-helpers",

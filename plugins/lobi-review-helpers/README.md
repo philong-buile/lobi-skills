@@ -1,4 +1,4 @@
-# review-helpers
+# lobi-review-helpers
 
 Claude Code skills for shipping changes and reviewing code and whole systems.
 
@@ -84,7 +84,7 @@ It only drafts the message in a code block for you to paste. It never sends anyt
 
 - "Draft a review request for these PRs"
 - "Message my lead the PRs are ready"
-- "/review-helpers:pl-pr-review-request 118 119 121"
+- "/lobi-review-helpers:pl-pr-review-request 118 119 121"
 
 **Requires** `gh` (GitHub CLI), authenticated in the current shell.
 
@@ -134,17 +134,17 @@ It is read-only for the reviewed repos. It never edits, commits or pushes there,
 
 ## Agents
 
-Subagents that ship with the plugin, available in every repo as `review-helpers:<name>`. Skills run inside your conversation; an agent runs separately with its own context and tool limits and returns only its result.
+Subagents that ship with the plugin, available in every repo as `lobi-review-helpers:<name>`. Skills run inside your conversation; an agent runs separately with its own context and tool limits and returns only its result.
 
-### `docs-drift-checker`
+### `lobi-agent-docs-drift-checker`
 
 Read-only. Takes each factual claim in the READMEs, docs pages, user-facing policy pages and agent instruction files, checks it against the code at the current base, and reports `doc:line | code:line | severity | what is wrong`. A broken promise to users, such as a deletion page that says more than the code deletes, is HIGH. `pl-ship-change` runs it when a diff changes documented behaviour.
 
-### `finding-to-test`
+### `lobi-agent-finding-to-test`
 
 Turns one confirmed finding into one regression test that fails on the current code, in the repo's own runner and style. It writes test files only, never the fix, so the person fixing the bug cannot bend the test to the fix. If the test passes, it reports that the finding is wrong or already fixed, and deletes the test.
 
-### `git-chore`
+### `lobi-agent-git-chore`
 
 Mechanical git and GitHub chores on Haiku: stage, commit with a conventional message, branch, push, open a PR with `gh`, read PR and CI status. Its tools are Bash and read-only search, so it cannot edit source files. It never force-pushes the default branch and never skips hooks; on a merge conflict, a rebase, a failing hook or red CI it stops and hands back. Delegate only when the chore takes several commands: spawning any subagent has a fixed context cost, so a single `git push` is cheaper inline.
 
@@ -152,7 +152,7 @@ Mechanical git and GitHub chores on Haiku: stage, commit with a conventional mes
 
 ```
 /plugin marketplace add philong-buile/lobi-skills
-/plugin install review-helpers@lobi-skills
+/plugin install lobi-review-helpers@lobi-skills
 ```
 
-Invoke as `/review-helpers:pl-ship-change`, `/review-helpers:pl-repo-reviewer`, `/review-helpers:pl-pr-review-annotations`, `/review-helpers:pl-pr-review-request`, `/review-helpers:pl-pr-autofix` or `/review-helpers:pl-staff-review` from any repo.
+Invoke as `/lobi-review-helpers:pl-ship-change`, `/lobi-review-helpers:pl-repo-reviewer`, `/lobi-review-helpers:pl-pr-review-annotations`, `/lobi-review-helpers:pl-pr-review-request`, `/lobi-review-helpers:pl-pr-autofix` or `/lobi-review-helpers:pl-staff-review` from any repo.

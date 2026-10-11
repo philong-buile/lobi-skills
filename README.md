@@ -15,34 +15,34 @@ Eight [Claude Code](https://claude.com/product/claude-code) skills for the parts
 
 ```bash
 claude plugin marketplace add philong-buile/lobi-skills
-claude plugin install review-helpers@lobi-skills
+claude plugin install lobi-review-helpers@lobi-skills
 claude plugin install design-helpers@lobi-skills
 ```
 
-Then ask in plain language. `Ship this fix: the export button runs twice on a double click` is enough; no flags to learn. Every skill also has a slash command, such as `/review-helpers:pl-ship-change`.
+Then ask in plain language. `Ship this fix: the export button runs twice on a double click` is enough; no flags to learn. Every skill also has a slash command, such as `/lobi-review-helpers:pl-ship-change`.
 
 ## Skills
 
 | Skill | What you get | Runs where |
 | --- | --- | --- |
-| [`pl-ship-change`](./plugins/review-helpers/skills/pl-ship-change/SKILL.md) | One feature or fix taken from plan to PR: branch, implement, unit + smoke + end-to-end checks, self-review, a short PR with a smoke-test guide, and a merge only when you ask | CLI or desktop |
-| [`pl-repo-reviewer`](./plugins/review-helpers/skills/pl-repo-reviewer/SKILL.md) | A reviewer bot for one repo: a read-only subagent that checks every PR against the 8 to 12 rules only that repo has, each backed by `file:line`, with its prompt reviewed against the code and dry-run on a merged PR before it ships | CLI or desktop |
-| [`pl-staff-review`](./plugins/review-helpers/skills/pl-staff-review/SKILL.md) | A staff-level review of a whole system: six parallel read-only lanes, claims re-checked in code, every idea scored, and a dated roadmap with 3 to 5 killer projects | CLI or desktop |
-| [`pl-pr-review-annotations`](./plugins/review-helpers/skills/pl-pr-review-annotations/SKILL.md) | `[FYI]` comments on a large PR that tell reviewers which hunks matter most | CLI or desktop |
-| [`pl-pr-review-request`](./plugins/review-helpers/skills/pl-pr-review-request/SKILL.md) | A ready-to-paste Slack message asking for review, with real PR titles, stack order and a short summary each | CLI or desktop |
-| [`pl-pr-autofix`](./plugins/review-helpers/skills/pl-pr-autofix/SKILL.md) | Auto-fix turned on for each new PR, so CI failures and merge conflicts get fixed while you work on something else | Desktop app |
+| [`pl-ship-change`](./plugins/lobi-review-helpers/skills/pl-ship-change/SKILL.md) | One feature or fix taken from plan to PR: branch, implement, unit + smoke + end-to-end checks, self-review, a short PR with a smoke-test guide, and a merge only when you ask | CLI or desktop |
+| [`pl-repo-reviewer`](./plugins/lobi-review-helpers/skills/pl-repo-reviewer/SKILL.md) | A reviewer bot for one repo: a read-only subagent that checks every PR against the 8 to 12 rules only that repo has, each backed by `file:line`, with its prompt reviewed against the code and dry-run on a merged PR before it ships | CLI or desktop |
+| [`pl-staff-review`](./plugins/lobi-review-helpers/skills/pl-staff-review/SKILL.md) | A staff-level review of a whole system: six parallel read-only lanes, claims re-checked in code, every idea scored, and a dated roadmap with 3 to 5 killer projects | CLI or desktop |
+| [`pl-pr-review-annotations`](./plugins/lobi-review-helpers/skills/pl-pr-review-annotations/SKILL.md) | `[FYI]` comments on a large PR that tell reviewers which hunks matter most | CLI or desktop |
+| [`pl-pr-review-request`](./plugins/lobi-review-helpers/skills/pl-pr-review-request/SKILL.md) | A ready-to-paste Slack message asking for review, with real PR titles, stack order and a short summary each | CLI or desktop |
+| [`pl-pr-autofix`](./plugins/lobi-review-helpers/skills/pl-pr-autofix/SKILL.md) | Auto-fix turned on for each new PR, so CI failures and merge conflicts get fixed while you work on something else | Desktop app |
 | [`pl-design-review`](./plugins/design-helpers/skills/pl-design-review/SKILL.md) | A frontend design and UX review in a real browser at desktop and mobile widths, ending in a P1/P2/P3 fix list with file:line references | Desktop app |
 | [`pl-readme-polish`](./plugins/design-helpers/skills/pl-readme-polish/SKILL.md) | A README redesigned like a popular open-source repo: light/dark banner, factual badges, install first, one feature table, checked on GitHub after the push | CLI or desktop |
 
 ### Agents
 
-Three subagents ship with `review-helpers` and run with their own context and tool limits:
+Three subagents ship with `lobi-review-helpers` and run with their own context and tool limits:
 
 | Agent | What it does | Tools |
 | --- | --- | --- |
-| [`docs-drift-checker`](./plugins/review-helpers/agents/docs-drift-checker.md) | Checks every factual claim in the docs and policy pages against the code, and reports `doc:line`, `code:line` and what is wrong | Read only |
-| [`finding-to-test`](./plugins/review-helpers/agents/finding-to-test.md) | Turns one confirmed bug into one test that fails today, without touching the code | Writes test files only |
-| [`git-chore`](./plugins/review-helpers/agents/git-chore.md) | Commits, branches, pushes and opens PRs on Haiku; stops on conflicts, failing hooks or red CI | Bash, read-only search |
+| [`lobi-agent-docs-drift-checker`](./plugins/lobi-review-helpers/agents/lobi-agent-docs-drift-checker.md) | Checks every factual claim in the docs and policy pages against the code, and reports `doc:line`, `code:line` and what is wrong | Read only |
+| [`lobi-agent-finding-to-test`](./plugins/lobi-review-helpers/agents/lobi-agent-finding-to-test.md) | Turns one confirmed bug into one test that fails today, without touching the code | Writes test files only |
+| [`lobi-agent-git-chore`](./plugins/lobi-review-helpers/agents/lobi-agent-git-chore.md) | Commits, branches, pushes and opens PRs on Haiku; stops on conflicts, failing hooks or red CI | Bash, read-only search |
 
 ## How it changes the work
 
@@ -132,8 +132,8 @@ python evals/run_triggers.py --runs 3
 | --- | --- | --- |
 | `pl-readme-polish` | This README and [lobi_agent](https://github.com/philong-buile/lobi_agent) | Rebuilt both READMEs and checked the render on GitHub. Its link check caught a redirected URL, and its facts-only rule flagged a missing `LICENSE`, which was added after asking. |
 | `pl-staff-review` | A private multi-repo production system: desktop app, backend, agent and tool layer, cloud infrastructure | Six lanes ran in parallel and 13 priority-driving claims were re-checked in code before ranking. When the lane output files came back empty, `extract_agent_reports.py` recovered all six reports from the session transcript. |
-| `docs-drift-checker`, `finding-to-test` | A private household app | The docs check read 74 claims in four READMEs and the account-deletion page and found 14 stale ones. All 3 spot-checked were real, among them a demo kitchen and an AI mock that no longer exist. Its first run read a checkout that was behind origin, so it now compares against the fetched base. The test writer got one bug that was already fixed: it found the existing test and wrote nothing. On a live rule break it wrote one test, failing on 8 strings, and touched no source file. |
-| `git-chore` | A throwaway repo | Asked for a PR with one modified file and one untracked file and no remote: it branched off `main`, committed both with a conventional message and the attribution line, then reported the exact push error and opened nothing. 4 tool calls, 15 s. |
+| `lobi-agent-docs-drift-checker`, `lobi-agent-finding-to-test` | A private household app | The docs check read 74 claims in four READMEs and the account-deletion page and found 14 stale ones. All 3 spot-checked were real, among them a demo kitchen and an AI mock that no longer exist. Its first run read a checkout that was behind origin, so it now compares against the fetched base. The test writer got one bug that was already fixed: it found the existing test and wrote nothing. On a live rule break it wrote one test, failing on 8 strings, and touched no source file. |
+| `lobi-agent-git-chore` | A throwaway repo | Asked for a PR with one modified file and one untracked file and no remote: it branched off `main`, committed both with a conventional message and the attribution line, then reported the exact push error and opened nothing. 4 tool calls, 15 s. |
 | `pl-repo-reviewer` | Two private production repos: an operations dashboard with a background worker, and a household app with an Android build | Reviewing the first drafts against the code caught 6 rule errors in one bot and 11 of 12 rules needing correction in the other, mostly absolute rules that the code breaks on purpose. The dry runs on already-merged PRs found 4 and 6 issues. All 6 spot-checked were real, including a deleted user's name and photo surviving in shared data. |
 | `pl-pr-autofix`, `pl-pr-review-request` | The author's team PRs on a production codebase | Part of the author's PR flow. The private versions carry the team's reviewer and repos; these public versions read them from `CLAUDE.md`. |
 
@@ -164,7 +164,7 @@ Without these lines, `pl-pr-autofix` only offers Auto-fix, and `pl-pr-review-req
 ├── evals/                              trigger eval: prompts, fixture app, runner, results
 ├── scripts/check.py                    repository checks
 └── plugins/
-    ├── review-helpers/                 ship, repo reviewer bot, review, triage, request, auto-fix
+    ├── lobi-review-helpers/            ship, repo reviewer bot, review, triage, request, auto-fix
     │   ├── agents/<agent>.md           subagents: docs drift, finding to test, git chores
     │   └── skills/<skill>/SKILL.md     plus references/, scripts/ and templates/ where needed
     └── design-helpers/                 design review, README polish

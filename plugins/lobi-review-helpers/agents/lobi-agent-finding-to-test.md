@@ -1,5 +1,5 @@
 ---
-name: finding-to-test
+name: lobi-agent-finding-to-test
 description: Turns one review finding (path:line plus the failure scenario) into one regression test that FAILS on the current code, using the repo's own test runner and style. It writes test files only, never the fix, in the worktree it is given, and proves the test fails for the stated reason. Use after a reviewer bot or code review reports a real bug, before anyone fixes it, or when the user says "write a failing test for this finding", "viết test bắt lỗi này".
 tools: Read, Grep, Glob, Bash, Write, Edit
 model: sonnet

@@ -1,5 +1,5 @@
 ---
-name: docs-drift-checker
+name: lobi-agent-docs-drift-checker
 description: Read-only check that a repo's docs still describe the code. It takes each factual claim in the README, docs pages, user-facing policy pages and agent instruction files (CLAUDE.md, AGENTS.md, .claude/agents) and checks it against the code, reporting doc:line, code:line and what is wrong. Use after a behaviour change, before a release, in a scheduled sweep, or when the user says "are the docs still true", "check docs drift", "docs có còn đúng không".
 tools: Read, Grep, Glob, Bash
 model: sonnet

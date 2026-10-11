@@ -1,5 +1,5 @@
 ---
-name: git-chore
+name: lobi-agent-git-chore
 description: Mechanical git/GitHub chores only — stage, commit, push, create branch, open/edit PR with gh, check PR/CI status, list/close branches. Use when the task is clerical and the decision is already made. NOT for code review, fixing code, merge conflicts, rebase, or CI failure diagnosis — return those to the caller.
 model: haiku
 tools: Bash, Read, Grep, Glob

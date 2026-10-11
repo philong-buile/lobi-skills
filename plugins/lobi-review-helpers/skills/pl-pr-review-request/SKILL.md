@@ -6,7 +6,7 @@ description: >-
   lists stacked PRs base to head, and adds a short plain-English summary per PR. Use
   when the user says "message my lead the PRs are ready", "draft a review request",
   "PRs ready for review message", "tell the reviewer to look at these", or invokes
-  /review-helpers:pl-pr-review-request. Produces the message text for the user to copy
+  /lobi-review-helpers:pl-pr-review-request. Produces the message text for the user to copy
   into Slack. It does NOT send anything.
 ---
 

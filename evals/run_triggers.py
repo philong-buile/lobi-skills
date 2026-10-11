@@ -104,7 +104,7 @@ def self_test():
         {"type": "system"},
         {"type": "assistant", "message": {"content": [{"type": "tool_use", "name": "Read", "input": {}}]}},
         {"type": "assistant", "message": {"content": [
-            {"type": "tool_use", "name": "Skill", "input": {"skill": "review-helpers:pl-ship-change"}}]}},
+            {"type": "tool_use", "name": "Skill", "input": {"skill": "lobi-review-helpers:pl-ship-change"}}]}},
     ])
     assert first_skill(stream) == "pl-ship-change"
     assert first_action(stream) == "Read" and first_action("") == "answered"

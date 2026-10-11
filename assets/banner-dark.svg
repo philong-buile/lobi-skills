@@ -8,11 +8,11 @@
   <text x="64" y="190" class="sans" font-size="26" fill="#a1a1aa">Claude Code skills for shipping changes,</text>
   <text x="64" y="226" class="sans" font-size="26" fill="#a1a1aa">PR triage, system and design reviews.</text>
   <g class="mono" font-size="17" fill="#a1a1aa">
-    <text x="760" y="72"><tspan fill="#3fb985">/</tspan>review-helpers:pl-ship-change</text>
-    <text x="760" y="104"><tspan fill="#3fb985">/</tspan>review-helpers:pl-staff-review</text>
-    <text x="760" y="136"><tspan fill="#3fb985">/</tspan>review-helpers:pl-pr-review-annotations</text>
-    <text x="760" y="168"><tspan fill="#3fb985">/</tspan>review-helpers:pl-pr-review-request</text>
-    <text x="760" y="200"><tspan fill="#3fb985">/</tspan>review-helpers:pl-pr-autofix</text>
+    <text x="760" y="72"><tspan fill="#3fb985">/</tspan>lobi-review-helpers:pl-ship-change</text>
+    <text x="760" y="104"><tspan fill="#3fb985">/</tspan>lobi-review-helpers:pl-staff-review</text>
+    <text x="760" y="136"><tspan fill="#3fb985">/</tspan>lobi-review-helpers:pl-pr-review-annotations</text>
+    <text x="760" y="168"><tspan fill="#3fb985">/</tspan>lobi-review-helpers:pl-pr-review-request</text>
+    <text x="760" y="200"><tspan fill="#3fb985">/</tspan>lobi-review-helpers:pl-pr-autofix</text>
     <text x="760" y="232"><tspan fill="#3fb985">/</tspan>design-helpers:pl-design-review</text>
     <text x="760" y="264"><tspan fill="#3fb985">/</tspan>design-helpers:pl-readme-polish</text>
   </g>
