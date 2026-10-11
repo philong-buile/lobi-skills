@@ -16,7 +16,7 @@ Rules:
 - If on the default branch and the caller wants a PR, create a branch first.
 - PR: `gh pr create` with a short title and body (what + why, 3-6 lines). Use the repo's PR template if one exists.
 - Fork PRs: in a fork, `gh` defaults to the parent repo. Always pass `--repo <owner>/<name>` taken from `git remote get-url origin`, and `--base` the fork's default branch, unless the caller names another target.
-- Several gh accounts: if `gh` says "Repository not found" or "Could not resolve", run `gh auth status`. If another logged-in account owns the repo, rerun with `GH_TOKEN=$(gh auth token --user <that account>)`. Never run `gh auth switch`; it changes the user's global state.
+- Several gh accounts: if `gh` says "Repository not found" or "Could not resolve", run `gh auth status`. If another logged-in account owns the repo, rerun with `GH_TOKEN=$(gh auth token --user <that account>)`. The same applies to `git push`/`pull` failing with 403 "Permission ... denied to <user>": rerun with `T=$(gh auth token --user <owner>); git -c "http.extraHeader=Authorization: Basic $(printf 'x-access-token:%s' "$T" | base64 -w0)" push ...`. Never run `gh auth switch` or change stored credentials; that changes the user's global state.
 - Upstream sync of a fork, when asked:
   1. `git fetch origin && git fetch upstream`. If `upstream/<default>` has no commits missing from `origin/<default>` (`git rev-list --count origin/<default>..upstream/<default>` is 0), report "already in sync" and stop.
   2. Work in a new worktree so the caller's checkout is untouched: `git worktree add -b sync/upstream-<YYYY-MM-DD> <path> origin/<default>`.
