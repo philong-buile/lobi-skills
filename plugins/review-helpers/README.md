@@ -144,6 +144,10 @@ Read-only. Takes each factual claim in the READMEs, docs pages, user-facing poli
 
 Turns one confirmed finding into one regression test that fails on the current code, in the repo's own runner and style. It writes test files only, never the fix, so the person fixing the bug cannot bend the test to the fix. If the test passes, it reports that the finding is wrong or already fixed, and deletes the test.
 
+### `git-chore`
+
+Mechanical git and GitHub chores on Haiku: stage, commit with a conventional message, branch, push, open a PR with `gh`, read PR and CI status. Its tools are Bash and read-only search, so it cannot edit source files. It never force-pushes the default branch and never skips hooks; on a merge conflict, a rebase, a failing hook or red CI it stops and hands back. Delegate only when the chore takes several commands: spawning any subagent has a fixed context cost, so a single `git push` is cheaper inline.
+
 ## Install
 
 ```

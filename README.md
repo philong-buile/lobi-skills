@@ -36,12 +36,13 @@ Then ask in plain language. `Ship this fix: the export button runs twice on a do
 
 ### Agents
 
-Two subagents ship with `review-helpers` and run with their own context and tool limits:
+Three subagents ship with `review-helpers` and run with their own context and tool limits:
 
 | Agent | What it does | Tools |
 | --- | --- | --- |
 | [`docs-drift-checker`](./plugins/review-helpers/agents/docs-drift-checker.md) | Checks every factual claim in the docs and policy pages against the code, and reports `doc:line`, `code:line` and what is wrong | Read only |
 | [`finding-to-test`](./plugins/review-helpers/agents/finding-to-test.md) | Turns one confirmed bug into one test that fails today, without touching the code | Writes test files only |
+| [`git-chore`](./plugins/review-helpers/agents/git-chore.md) | Commits, branches, pushes and opens PRs on Haiku; stops on conflicts, failing hooks or red CI | Bash, read-only search |
 
 ## How it changes the work
 
@@ -132,6 +133,7 @@ python evals/run_triggers.py --runs 3
 | `pl-readme-polish` | This README and [lobi_agent](https://github.com/philong-buile/lobi_agent) | Rebuilt both READMEs and checked the render on GitHub. Its link check caught a redirected URL, and its facts-only rule flagged a missing `LICENSE`, which was added after asking. |
 | `pl-staff-review` | A private multi-repo production system: desktop app, backend, agent and tool layer, cloud infrastructure | Six lanes ran in parallel and 13 priority-driving claims were re-checked in code before ranking. When the lane output files came back empty, `extract_agent_reports.py` recovered all six reports from the session transcript. |
 | `docs-drift-checker`, `finding-to-test` | A private household app | The docs check read 74 claims in four READMEs and the account-deletion page and found 14 stale ones. All 3 spot-checked were real, among them a demo kitchen and an AI mock that no longer exist. Its first run read a checkout that was behind origin, so it now compares against the fetched base. The test writer got one bug that was already fixed: it found the existing test and wrote nothing. On a live rule break it wrote one test, failing on 8 strings, and touched no source file. |
+| `git-chore` | A throwaway repo | Asked for a PR with one modified file and one untracked file and no remote: it branched off `main`, committed both with a conventional message and the attribution line, then reported the exact push error and opened nothing. 4 tool calls, 15 s. |
 | `pl-repo-reviewer` | Two private production repos: an operations dashboard with a background worker, and a household app with an Android build | Reviewing the first drafts against the code caught 6 rule errors in one bot and 11 of 12 rules needing correction in the other, mostly absolute rules that the code breaks on purpose. The dry runs on already-merged PRs found 4 and 6 issues. All 6 spot-checked were real, including a deleted user's name and photo surviving in shared data. |
 | `pl-pr-autofix`, `pl-pr-review-request` | The author's team PRs on a production codebase | Part of the author's PR flow. The private versions carry the team's reviewer and repos; these public versions read them from `CLAUDE.md`. |
 
@@ -163,7 +165,7 @@ Without these lines, `pl-pr-autofix` only offers Auto-fix, and `pl-pr-review-req
 ├── scripts/check.py                    repository checks
 └── plugins/
     ├── review-helpers/                 ship, repo reviewer bot, review, triage, request, auto-fix
-    │   ├── agents/<agent>.md           subagents: docs drift, finding to test
+    │   ├── agents/<agent>.md           subagents: docs drift, finding to test, git chores
     │   └── skills/<skill>/SKILL.md     plus references/, scripts/ and templates/ where needed
     └── design-helpers/                 design review, README polish
 ```
