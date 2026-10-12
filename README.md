@@ -31,6 +31,7 @@ Then ask in plain language. `Ship this fix: the export button runs twice on a do
 | [`pl-pr-review-annotations`](./plugins/lobi-review-helpers/skills/pl-pr-review-annotations/SKILL.md) | `[FYI]` comments on a large PR that tell reviewers which hunks matter most | CLI or desktop |
 | [`pl-pr-review-request`](./plugins/lobi-review-helpers/skills/pl-pr-review-request/SKILL.md) | A ready-to-paste Slack message asking for review, with real PR titles, stack order and a short summary each | CLI or desktop |
 | [`pl-pr-autofix`](./plugins/lobi-review-helpers/skills/pl-pr-autofix/SKILL.md) | Auto-fix turned on for each new PR, so CI failures and merge conflicts get fixed while you work on something else | Desktop app |
+| [`pl-workspace-cleanup`](./plugins/lobi-review-helpers/skills/pl-workspace-cleanup/SKILL.md) | Merged worktrees, branches and finished Claude sessions removed across a whole work folder, each one proven safe first, with one confirmation | CLI or desktop (sessions: desktop) |
 | [`pl-design-review`](./plugins/design-helpers/skills/pl-design-review/SKILL.md) | A frontend design and UX review in a real browser at desktop and mobile widths, ending in a P1/P2/P3 fix list with file:line references | Desktop app |
 | [`pl-readme-polish`](./plugins/design-helpers/skills/pl-readme-polish/SKILL.md) | A README redesigned like a popular open-source repo: light/dark banner, factual badges, install first, one feature table, checked on GitHub after the push | CLI or desktop |
 

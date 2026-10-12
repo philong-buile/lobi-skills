@@ -110,6 +110,20 @@ Desktop app only, because it needs the `ccd_pr` tools. It never turns on auto-me
 - "Turn on auto-fix"
 - "Watch this PR's CI"
 
+### `pl-workspace-cleanup`
+
+Cleans a folder full of repos: leftover git worktrees, local branches whose PR is merged or closed, and Claude desktop sessions whose work is done.
+
+1. Takes an inventory: every worktree, its PR state from `gh`, uncommitted files, and commits that exist only locally.
+2. Proves each removal is safe. Squash-merged branches pass when `git cherry` shows every commit is already in the base branch.
+3. Shows one plan and asks once, then removes worktrees, branches and sessions in batches.
+4. Before it deletes sessions, it runs the evidence step named in your CLAUDE.md (`Cleanup evidence step: <agent>`), if you set one.
+
+**Trigger phrases**
+
+- "Clean up worktrees"
+- "Delete merged branches and finished sessions"
+
 ### `pl-staff-review`
 
 A critical staff/principal-level review of a whole system. It ranks improvements by impact per engineering hour, for a deadline such as a salary or promotion review. It covers code, related infra repos, open PRs and PoCs, CI/CD, security, UX and the open-source ecosystem. The steps:
@@ -155,4 +169,4 @@ Mechanical git and GitHub chores on Haiku: stage, commit with a conventional mes
 /plugin install lobi-review-helpers@lobi-skills
 ```
 
-Invoke as `/lobi-review-helpers:pl-ship-change`, `/lobi-review-helpers:pl-repo-reviewer`, `/lobi-review-helpers:pl-pr-review-annotations`, `/lobi-review-helpers:pl-pr-review-request`, `/lobi-review-helpers:pl-pr-autofix` or `/lobi-review-helpers:pl-staff-review` from any repo.
+Invoke as `/lobi-review-helpers:pl-ship-change`, `/lobi-review-helpers:pl-repo-reviewer`, `/lobi-review-helpers:pl-pr-review-annotations`, `/lobi-review-helpers:pl-pr-review-request`, `/lobi-review-helpers:pl-pr-autofix`, `/lobi-review-helpers:pl-workspace-cleanup` or `/lobi-review-helpers:pl-staff-review` from any repo.
