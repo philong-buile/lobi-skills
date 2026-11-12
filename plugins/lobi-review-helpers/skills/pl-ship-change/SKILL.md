@@ -81,6 +81,7 @@ If the rules disagree with this skill, the repo wins.
    - **API or backend:** run it locally and call the changed endpoint with real input, including one failure case.
    - **CLI or library:** run the real command or a small script against a sample input.
    - **Integrations** (a host app, a device, a third-party service): use the repo's documented end-to-end recipe. Use a local or scratch environment, never shared or production data.
+   - **Driving a desktop GUI:** if the user runs a background tool that takes focus (an automation or typing assistant), pause it before the first click or keystroke and resume it when the run is fully done, also after a failed or stopped run. Check the foreground window before each click.
    - **Pure refactor:** the test suites are the proof. Say so.
 4. **Record what ran, with numbers, and what did not.** The PR's Tests section comes from this record.
 
@@ -99,7 +100,7 @@ If the rules disagree with this skill, the repo wins.
 | The PR description claims less than the diff does | Fix the description. |
 | A pre-existing issue the diff only touches | Leave it, and list it as a follow-up. |
 
-Report what you fixed and what you dismissed, with reasons.
+Report what you fixed and what you dismissed, with reasons. After the fixes, have the same reviewer check them once more. Report the task as done only after a clean pass; otherwise say what is still open.
 
 ## 6. Commit, push, open the PR
 
@@ -158,6 +159,13 @@ gh pr merge <N> --<merge|squash|rebase> --match-head-commit <reviewed sha>
 ```
 
 Use the repo's merge method. `--match-head-commit` refuses the merge if new commits arrived after your review. If the repo deploys on every push to the base, even a config-only merge deploys: check that no other PR or session is mid-deploy first, because a deploy check that waits for an exact commit times out when another push lands on top. Then delete the branch and the worktree you created. Do not deploy unless asked.
+
+## 8b. Hand off to the user
+
+When the review is clean, CI is green and the PR is ready (or blocked on something only the user can decide), and a tool that messages the user is available (a Telegram or chat notifier), send two messages without asking:
+
+1. **Status:** the PR link, what changed in one line, tests, e2e and review results with numbers, and what is left for the user.
+2. **A draft review request, as its own message** with nothing else in it, so the user can copy it on a phone. Write it in the user's style for that reviewer. **Never send it to the reviewer or post it anywhere**: the user sends it.
 
 ## 9. Report
 
